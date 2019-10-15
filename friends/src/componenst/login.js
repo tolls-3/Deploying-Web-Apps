@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import * as actionCreators from "../state/actionCreator";
 import { connect } from "react-redux";
+//import { LOGGING_IN } from "../state/actionTypes";
 
 function Login(props) {
-  console.log(props);
+  //console.log(props);
   const [user, setUser] = useState({
     username: "",
     password: ""
@@ -12,18 +13,23 @@ function Login(props) {
 
   function login(e) {
     e.preventDefault();
-    axios
-      .post("http://localhost:5001/api/login", user)
-      .then(res => {
-        console.log(res.data);
-        localStorage.setItem("token", res.data.payload);
-        props.history.push("/friends");
-      })
-      .catch(error => {
-        //debugger;
-        alert(error.response.data.error);
-      });
-  }
+    // return function(dispatch) {
+    //   // dispatch({
+    //   //   type: LOGGING_IN
+    //   // });
+      axios
+        .post("http://localhost:5001/api/login", user)
+        .then(res => {
+          console.log(res.data);
+          localStorage.setItem("token", res.data.payload);
+          props.history.push("/friends");
+        })
+        .catch(error => {
+          //debugger;
+          alert(error.response.data.error);
+        });
+    };
+  
 
   function handleChange(e) {
     return setUser({
@@ -41,6 +47,7 @@ function Login(props) {
           placeholder="Username"
           value={user.username}
           onChange={handleChange}
+          autoComplete="username"
         />
         <input
           type="password"
@@ -48,6 +55,7 @@ function Login(props) {
           placeholder="Password"
           value={user.password}
           onChange={handleChange}
+          autoComplete="current-password"
         />
         <button className="button" type="submit">
           Log in
@@ -59,8 +67,8 @@ function Login(props) {
 
 export default connect(
   state => {
-    console.log(state)
-    return state
+    //console.log(state);
+    return state;
   },
   actionCreators
 )(Login);

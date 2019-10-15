@@ -53,6 +53,11 @@ export function friendReducer(state = initialFriendState, action) {
         ...state,
         error: action.payload
       };
+    case types.LOGGING_IN:
+      return {
+        ...state,
+        isFetching:true
+      };
     default:
       return state;
   }
