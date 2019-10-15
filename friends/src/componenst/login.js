@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import axiosWithAuth from "../utils/axiosWithAuth";
+import * as actionCreators from "../state/actionCreator";
+import { connect } from "react-redux";
 
-export default function Login(props) {
-  //console.log(props)
+function Login(props) {
+  console.log(props);
   const [user, setUser] = useState({
     username: "",
     password: ""
@@ -48,8 +49,18 @@ export default function Login(props) {
           value={user.password}
           onChange={handleChange}
         />
-        <button className='button' type="submit">Log in</button>
+        <button className="button" type="submit">
+          Log in
+        </button>
       </form>
     </div>
   );
 }
+
+export default connect(
+  state => {
+    console.log(state)
+    return state
+  },
+  actionCreators
+)(Login);

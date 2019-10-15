@@ -12,6 +12,9 @@ export function removeFriend(el) {
 
 export function fetchFriends() {
   return function(dispatch) {
+    dispatch({
+      type: types.FETCH_FRIENDS_START
+    });
     axiosWithAuth()
       .get(friendsApi)
       .then(res =>

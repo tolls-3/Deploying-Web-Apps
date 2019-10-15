@@ -1,9 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { fetchFriends, deleteFriends } from "../state/actionCreator";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 function FriendsList(props) {
-  //console.log(props);
+  console.log(props);
 
   function getFriends() {
     props.fetchFriends();
@@ -16,7 +18,9 @@ function FriendsList(props) {
   }
   return (
     <div>
-      <button className='button' onClick={getFriends}>FETCH FRIENDS</button>
+      <button className="button" onClick={getFriends}>
+        FETCH FRIENDS
+      </button>
       <div>
         {props.friend.data.map(char => (
           <div key={char.id}>
@@ -31,6 +35,14 @@ function FriendsList(props) {
             </button>
           </div>
         ))}
+      </div>
+      <div className="loading">
+        {props.friend.isFetching && (
+          <>
+            <h2>Loading...</h2>
+            <Loader type="Rings" color="green" height={80} width={80} />
+          </>
+        )}
       </div>
     </div>
   );
